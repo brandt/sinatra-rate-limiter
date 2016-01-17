@@ -20,7 +20,7 @@ module Sinatra
         limiter.request   = request
         limiter.options   = options
 
-        limiter.headers.each{|h,v| response.headers[h] = v} if limiter.options.send_headers
+        limiter.headers.each{ |h, v| response.headers[h] = v.to_s } if limiter.options.send_headers
 
         if (error_locals = limiter.limits_exceeded?)
           response.headers['Retry-After'] = error_locals[:try_again] if limiter.options.send_headers
